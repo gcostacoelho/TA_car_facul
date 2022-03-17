@@ -1,1 +1,0 @@
-###Projeto em contrusção durante as aulas de LP3 em django da Faculdade
