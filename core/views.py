@@ -41,6 +41,10 @@ def cadastro_fabricante(request):
     contexto = {'form': form}
     return render(request, 'core/cadastro_fabricante.html', contexto)
 
+def lista_fabricante(request):
+    dados = Fabricante.objects.all()
+    contexto = {'dados': dados}
+    return render(request, 'core/lista_fabricante.html', contexto)
 
 def tabela_preco(request):
     return render(request, 'core/tabela_preco.html')

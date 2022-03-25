@@ -27,6 +27,7 @@ urlpatterns = [
     path('lista_clientes/', lista_cliente),
     path('lista_veiculos/', lista_veiculo),
     path('cadastro_fabricante', cadastro_fabricante),
+    path('lista_fabricante', lista_fabricante),
     path('tabela/', tabela_preco),
 
 ]
