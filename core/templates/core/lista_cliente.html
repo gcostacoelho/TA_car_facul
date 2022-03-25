@@ -2,6 +2,49 @@
 
 {% block main %}
 
-<h3>lista_cliente</h3>
+    <h3>Lista de cliente</h3>
+    <br>
+
+    {% for i in dados %}
+        Nome: {{i.nome}} <br>
+        
+        {% if i.endereco %}
+            Endereço: {{i.endereco}} <br>
+        {% endif %}
+        
+        {% if i.complemtento %}
+            Complemento: {{i.complemento}} <br>
+        {% else %}Complemento: - <br>
+        {% endif %}
+        
+        {% if i.bairro %}
+            Bairro: {{i.bairro}} <br>
+        {% else %}Bairro: - <br>
+        {% endif %}
+        
+        {% if i.cidade %}
+            Cidade: {{i.cidade}} <br>
+        {% else %}Cidade: - <br>
+        {% endif %}
+        
+        {% if i.cep %}
+            CEP: {{i.cep}} <br>
+        {% else %}CEP: - <br>
+        {% endif %}
+        
+        Email: {{i.email}} <br>
+
+        {% if i.telefone %}
+            Telefone: {{i.telefone}} <br>
+        {% else %}Telefone: - <br>
+        {% endif %}
+
+        {% if i.foto %}
+            <img src="{{i.foto.url}}" width="200px"> <br>
+        {% else %} Não tem foto <br>
+        {% endif %}
+        ------------------------------------------------<br>
+    {% endfor %}
+
 
 {% endblock main %}

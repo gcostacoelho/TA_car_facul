@@ -2,6 +2,31 @@
 
 {% block main %}
 
-<h3>lista_veiculos</h3>
+    <h3>lista de veiculos</h3>
+    <br>
+
+    {% for i in dados %}
+        idCliente: {{i.id_cliente}}<br>
+        idFabricante: {{i.id_fabricante}}<br>
+        
+        {% if i.modelo %}
+            Modelo: {{i.modelo}}<br>
+        {% else %} Modelo: - <br>
+        {% endif %}
+        
+        {% if i.cor %}
+            Cor: {{i.cor}}<br>
+        {% else %}Cor: -<br>
+        {% endif %}
+        
+        Ano: {{i.ano}}<br>
+        Placa: {{i.placa}}<br>
+        
+        {% if i.foto %}
+            <img src="{{i.foto.url}}" width="200px"> <br>
+        {% else %} Não tem foto <br>
+        {% endif %}
+        ------------------------------------------------<br>
+    {% endfor %}
 
 {% endblock main %}

@@ -17,3 +17,8 @@ class FormVeiculo(ModelForm):
     class Meta:
         model = Veiculo
         fields = '__all__'
+
+class FormFabricante(ModelForm):
+    class Meta:
+        model = Fabricante
+        fields = '__all__'

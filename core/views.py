@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from core.forms import *
+from core.models import *
 # Create your views here.
 
 def home(request):
@@ -15,14 +16,31 @@ def cadastro_cliente(request):
     return render(request, 'core/cadastro_cliente.html', contexto)
 
 def lista_cliente(request):
-    return render(request, 'core/lista_cliente.html')
+    dados = Cliente.objects.all()
+    contexto = {'dados': dados}
+    return render(request, 'core/lista_cliente.html', contexto)
 
 def cadastro_veiculo(request):
     form = FormVeiculo(request.POST or None, request.FILES or None)
-    return render(request, 'core/cadastro_veiculo.html')
+    if form.is_valid():
+        form.save()
+        return redirect('url_principal')
+    contexto = {'form': form}
+    return render(request, 'core/cadastro_veiculo.html', contexto)
 
 def lista_veiculo(request):
-    return render(request, 'core/lista_veiculo.html')
+    dados = Veiculo.objects.all()
+    contexto = {'dados': dados}
+    return render(request, 'core/lista_veiculo.html', contexto)
+
+def cadastro_fabricante(request):
+    form = FormFabricante(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('url_principal')
+    contexto = {'form': form}
+    return render(request, 'core/cadastro_fabricante.html', contexto)
+
 
 def tabela_preco(request):
     return render(request, 'core/tabela_preco.html')
