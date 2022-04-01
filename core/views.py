@@ -78,5 +78,13 @@ def exclui_cliente(request, id):
     contexto = {'url': '/lista_clientes', 'objeto': objeto.nome}
     return render(request, 'core/mensagem_excluir.html', contexto)
 
+def exclui_veiculo(request, id):
+    objeto = Veiculo.objects.get(id=id)
+    if request.POST:
+        objeto.delete()
+        return redirect('url_lista_veiculos')
+    contexto = {'url': '/lista_veiculos', 'objeto': objeto.modelo}
+    return render(request, 'core/mensagem_excluir.html', contexto)
+
 def tabela_preco(request):
     return render(request, 'core/tabela_preco.html')
