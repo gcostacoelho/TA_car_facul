@@ -2,12 +2,12 @@
 
 {% block main %}
 
-    <h3>Cadastro_veiculo</h3>
-
+    <h3>{{ titulo }}</h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Cadastrar</button>
+        <button type="submit">{{ stringBotao }}</button>
+        <button type="button" onclick="location.href='/'">Cancelar</button>
     </form>
 
 {% endblock main %}
