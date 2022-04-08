@@ -15,13 +15,15 @@ Including another URLconf
 """
 from unicodedata import name
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from core.views import *
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/registrar', Registrar.as_view(), name="url_registrar"),
     path('', home, name='url_principal'),
     path('cadastro_cliente/', cadastro_cliente),
     path('cadastro_veiculo/', cadastro_veiculo),

@@ -1,10 +1,17 @@
 from django.shortcuts import redirect, render
 from core.forms import *
 from core.models import *
+from django.views import generic
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 def home(request):
     return render(request, './index.html')
+
+class Registrar(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = '/'
+    template_name = 'registration/register.html'
 
 def cadastro_cliente(request):
     form = FormCliente(request.POST or None, request.FILES or None)
@@ -14,6 +21,7 @@ def cadastro_cliente(request):
     
     contexto = {'form': form, 'titulo': 'Cadastro de cliente', 'stringBotao': 'Cadastrar'}
     return render(request, 'core/cadastro.html', contexto)
+    #render = É uma resposta sem código para quem solicitou acesso ao server
 
 def lista_cliente(request):
     dados = Cliente.objects.all()

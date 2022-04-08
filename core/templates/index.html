@@ -12,7 +12,22 @@
     <a href="/tabela/">Tabela de preços</a> &nbsp; &nbsp; &nbsp;
     <a href="/cadastro_fabricante">Cadastro de fabricantes</a> &nbsp; &nbsp; &nbsp;
     <a href="/lista_fabricante">Lista de fabricante</a> &nbsp; &nbsp; &nbsp;
-    (<a href="admin/" target="_blank">Admin</a>) <br>
+
+
+    {% if user.get_username %}
+        (
+            usuário: {{user.get_username}} |
+            <a href="/accounts/logout">Logout</a> 
+            |
+            <a href="/admin/">Admin</a>
+        ) <br>
+    {% else %}
+        ( usuário não autenticado | 
+            <a href="/accounts/login/">Login</a>
+            |
+            <a href="/accounts/registrar">Registrar</a>
+        ) <br>
+    {% endif %}
 
     <img src="{% static "fundo.png" %}" width="600">
 {% endblock main %}
