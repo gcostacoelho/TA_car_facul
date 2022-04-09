@@ -2,32 +2,56 @@
 {% load static %}
 
 {% block main %}
-    <h3>TAcar - Estacionamento</h3>
-    
-    <a href="/">Home</a> &nbsp;
-    <a href="/cadastro_cliente">Cadastro de clientes</a> &nbsp;
-    <a href="/lista_clientes">Lista de clientes</a> &nbsp;
-    <a href="/cadastro_veiculo">Cadastro de veículos</a> &nbsp;
-    <a href="/lista_veiculos">Lista de veiculos</a> &nbsp;
-    <a href="/tabela/">Tabela de preços</a> &nbsp; &nbsp; &nbsp;
-    <a href="/cadastro_fabricante">Cadastro de fabricantes</a> &nbsp; &nbsp; &nbsp;
-    <a href="/lista_fabricante">Lista de fabricante</a> &nbsp; &nbsp; &nbsp;
+    <h3 style="font-size:35px">TAcar - Estacionamento</h3>
+    <div id="menu">
+        <a href="/">Home</a> &nbsp;
+        <a href="/cadastro_cliente">Cadastro de clientes</a> &nbsp;
+        <a href="/lista_clientes">Lista de clientes</a> &nbsp;
+        <a href="/cadastro_veiculo">Cadastro de veículos</a> &nbsp;
+        <a href="/lista_veiculos">Lista de veiculos</a> &nbsp;
+        <a href="/tabela/">Tabela de preços</a> &nbsp; &nbsp; &nbsp;
+        <a href="/cadastro_fabricante">Cadastro de fabricantes</a> &nbsp; &nbsp; &nbsp;
+        <a href="/lista_fabricante">Lista de fabricante</a> &nbsp; &nbsp; &nbsp;
+    </div>
 
+    <div id="register">
+        {% if user.get_username %}
+            (
+                usuário: {{user.get_username}} |
+                <a href="/accounts/logout">Logout</a> 
+                |
+                <a href="/admin/">Admin</a>
+            ) <br>
+        {% else %}
+            (Usuário não autenticado | 
+                <a href="/accounts/login/">Login</a>
+                |
+                <a href="/accounts/registrar">Registrar</a>
+            ) <br>
+        {% endif %}
+    </div>  
 
-    {% if user.get_username %}
-        (
-            usuário: {{user.get_username}} |
-            <a href="/accounts/logout">Logout</a> 
-            |
-            <a href="/admin/">Admin</a>
-        ) <br>
-    {% else %}
-        ( usuário não autenticado | 
-            <a href="/accounts/login/">Login</a>
-            |
-            <a href="/accounts/registrar">Registrar</a>
-        ) <br>
-    {% endif %}
+    <style>
+        #menu{
+            max-width: max-content;
+            display: inline-block;
+        }
+        #menu a{
+            
+            color: black;
+            text-decoration: none;
+        }
 
-    <img src="{% static "fundo.png" %}" width="600">
+        #menu a:hover{
+            transition: all 0.1s ease-out;
+            color: blue;
+        }
+
+        #register{
+            max-width: max-content;
+            display: inline-block; 
+        }
+    </style>
+
+    <img src="{% static "fundo.png" %}" width="600" style="display: block; margin-left: auto; margin-right: auto">
 {% endblock main %}
