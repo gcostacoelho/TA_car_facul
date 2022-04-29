@@ -28,7 +28,6 @@ class Fabricante(models.Model):
     class Meta:
         verbose_name_plural = 'Fabricantes'
 
-
 class Veiculo(models.Model):
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     id_fabricante = models.ForeignKey(Fabricante, on_delete=models.CASCADE)
@@ -42,3 +41,36 @@ class Veiculo(models.Model):
         return f'{self.placa} ({self.modelo})'
     class Meta:
         verbose_name_plural = 'Veiculos'
+
+class Preco(models.Model):
+    descricao = models.CharField(max_length=50, verbose_name="Descrição")
+    valor = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Valor")
+
+    def __str__(self):
+        return f'{self.descricao} - R$ {self.valor}'
+    class Meta:
+        verbose_name_plural = 'Tabela'
+
+class Mensalista(models.Model):
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Cliente")
+    id_preco = models.ForeignKey(Preco, on_delete=models.CASCADE, verbose_name="Preço")
+    dia_vencimento = models.IntegerField(default=5, verbose_name="Dia de vencimento")
+    pendencia = models.BooleanField(default=False, blank=True, null=True,verbose_name="Pendência")
+
+    def __str__(self):
+        return f"{self.id_cliente}"
+    class Meta:
+        verbose_name_plural = 'Mensalista'
+
+class Rotativo(models.Model):
+    id_veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE, verbose_name="Veiculo")
+    id_preco = models.ForeignKey(Preco, on_delete=models.CASCADE, verbose_name="Preço")
+    data_entrada = models.DateTimeField(auto_now=False, auto_now_add=False, verbose_name="Entrada")
+    data_saida = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True, verbose_name="Saída")
+    pago = models.BooleanField(default=False, blank=True, null=True, verbose_name="Pago")
+    total = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, verbose_name="Total")
+    
+    def __str__(self):
+        return f"{self.id_veiculo} - {self.data_entrada}"
+    class Meta:
+        verbose_name_plural = 'Rotativos'
