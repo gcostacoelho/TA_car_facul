@@ -58,7 +58,7 @@ class Mensalista(models.Model):
     pendencia = models.BooleanField(default=False, blank=True, null=True,verbose_name="Pendência")
 
     def __str__(self):
-        return f"{self.id_cliente}"
+        return f"{self.id_cliente} - {self.id_preco}"
     class Meta:
         verbose_name_plural = 'Mensalista'
 
