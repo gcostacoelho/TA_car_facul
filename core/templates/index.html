@@ -2,56 +2,71 @@
 {% load static %}
 
 {% block main %}
-    <h3 style="font-size:35px">TAcar - Estacionamento</h3>
-    <div id="menu">
-        <a href="/">Home</a> &nbsp;
-        <a href="/cadastro_cliente">Cadastro de clientes</a> &nbsp;
-        <a href="/lista_clientes">Lista de clientes</a> &nbsp;
-        <a href="/cadastro_veiculo">Cadastro de veículos</a> &nbsp;
-        <a href="/lista_veiculos">Lista de veiculos</a> &nbsp;
-        <a href="/tabela/">Tabela de preços</a> &nbsp; &nbsp; &nbsp;
-        <a href="/cadastro_fabricante">Cadastro de fabricantes</a> &nbsp; &nbsp; &nbsp;
-        <a href="/lista_fabricante">Lista de fabricante</a> &nbsp; &nbsp; &nbsp;
+    <div class="cabecalho">
+        <h3>Estacionamento - TAcar</h3>
+        <div id="register">
+            {% if user.get_username %}
+                (
+                    usuário: {{user.get_username}} |
+                    <a href="/accounts/logout">Logout</a> 
+                    |
+                    <a href="/admin/" target="_blank">Admin</a>
+                ) <br>
+            {% else %}
+                (Usuário não autenticado | 
+                    <a href="/accounts/login/">Login</a>
+                    |
+                    <a href="/accounts/registrar">Registrar</a>
+                ) <br>
+            {% endif %}
+        </div>
     </div>
-
-    <div id="register">
-        {% if user.get_username %}
-            (
-                usuário: {{user.get_username}} |
-                <a href="/accounts/logout">Logout</a> 
-                |
-                <a href="/admin/">Admin</a>
-            ) <br>
-        {% else %}
-            (Usuário não autenticado | 
-                <a href="/accounts/login/">Login</a>
-                |
-                <a href="/accounts/registrar">Registrar</a>
-            ) <br>
-        {% endif %}
-    </div>  
+    <img src="{% static "fundo.png" %}" width="600" style="display: block; margin-left: auto; margin-right: auto">
+    <br><br>
+        <div id="menu">
+            <a href="/">Home</a> &nbsp; | &nbsp;
+            <a href="/cadastro_cliente">Cadastro de clientes</a> &nbsp; | &nbsp;
+            <a href="/lista_clientes">Lista de clientes</a> &nbsp; | &nbsp;
+            <a href="/cadastro_veiculo">Cadastro de veículos</a> &nbsp; | &nbsp;
+            <a href="/lista_veiculos">Lista de veiculos</a> &nbsp; | &nbsp;
+            <a href="/tabela/">Tabela de preços</a> &nbsp; | &nbsp;
+            <a href="/cadastro_fabricante">Cadastro de fabricantes</a>&nbsp; | &nbsp;
+            <a href="/lista_fabricante">Lista de fabricante</a> &nbsp; | &nbsp;
+            <!--<a href="/">Cadastro de mensalistas</a> &nbsp; | &nbsp;
+            <a href="/">Lista de mensalistas</a> &nbsp; | &nbsp;-->
+        </div>
 
     <style>
-        #menu{
-            max-width: max-content;
-            display: inline-block;
+        .cabecalho{
+            background-color: #3e3e3e;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius:10px;
+            border: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
         }
-        #menu a{
-            
-            color: black;
+
+        #menu{
+            background-color:#3e3e3e;
+            border-radius: 10px;
+            height: 50px;
+            display:flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        a {
+            color: white;
             text-decoration: none;
         }
 
-        #menu a:hover{
+        a:hover{
             transition: all 0.1s ease-out;
             color: blue;
         }
-
-        #register{
-            max-width: max-content;
-            display: inline-block; 
-        }
     </style>
-
-    <img src="{% static "fundo.png" %}" width="600" style="display: block; margin-left: auto; margin-right: auto">
 {% endblock main %}
