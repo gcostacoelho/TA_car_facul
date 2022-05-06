@@ -4,6 +4,7 @@ from core.models import *
 list = [Cliente, Fabricante, Veiculo, Preco, Mensalista, Rotativo]
 
 admin.site.register(list)
+
 # Register your models here.
 
 """admin.site.register(Cliente)

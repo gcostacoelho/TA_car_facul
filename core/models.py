@@ -1,5 +1,6 @@
 from distutils.command.upload import upload
 from email.policy import default
+from math import ceil, floor, trunc
 from optparse import BadOptionError
 from tabnanny import verbose
 from django.db import models
@@ -72,5 +73,25 @@ class Rotativo(models.Model):
     
     def __str__(self):
         return f"{self.id_veiculo} - {self.data_entrada}"
+    
     class Meta:
-        verbose_name_plural = 'Rotativos'
+        verbose_name_plural = 'Rotativo'
+    
+    def calcula_total(self):
+        if self.data_saida:
+            horas = (self.data_saida - self.data_entrada).total_seconds()/3600
+            obj = Preco.objects.get(id=self.id_preco.pk)
+            adicional = 0.60 * float(obj.valor)
+
+            if horas <= 0.5: 
+                total = float(obj.valor) / 2
+            else:
+                tolerancia = (ceil(horas-1)) - trunc(ceil(horas-1))
+                if tolerancia <=0.25:
+                    taxa = float(obj.valor) + ((floor(horas-1)) * adicional)
+                else:
+                    taxa = float(obj.valor) + ((ceil(horas -1)) * adicional)
+
+            self.total = taxa
+            return True
+        else: return False

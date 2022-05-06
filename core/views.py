@@ -96,3 +96,28 @@ def exclui_veiculo(request, id):
 
 def tabela_preco(request):
     return render(request, 'core/tabela_preco.html')
+
+def cadastro_rotativo(request):
+    form = FormRotativo(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('url_lista_rotativo')
+    contexto = {'form': form, 'titulo':'Cadastro de rotativo', 'stringBotao': 'Cadastrar'}
+    return render(request, 'core/cadastro.html', contexto)
+
+def listagem_rotativo(request):
+    dados = Rotativo.objects.all()
+    contexto = {'dados': dados}
+    return render(request, 'core/lista_rotativo.html', contexto)
+
+def altera_rotativo(request, id):
+    objeto = Rotativo.objects.get(id=id)
+    form = FormRotativo(request.POST or None, request.FILES or None, instance=objeto)
+
+    if form.is_valid():
+        objeto.calcula_total()
+        form.save()
+        return redirect('url_lista_rotativo')
+        
+    contexto = {'form': form, 'titulo':'Atualização de rotativo', 'stringBotao': 'Atualizar'}
+    return render(request, 'core/cadastro.html', contexto)

@@ -36,7 +36,9 @@ urlpatterns = [
     path('altera_veiculo/<int:id>/', altera_veiculo, name="url_altera_veiculo"),
     path('exclui_cliente/<int:id>/', exclui_cliente, name="url_exclui_cliente"),
     path('exclui_veiculo/<int:id>/', exclui_veiculo, name="url_exclui_veiculo"),
-
+    path('cadastro_rotativo/', cadastro_rotativo, name="url_cadstro_rotativo"),
+    path('lista_rotativo/', listagem_rotativo, name="url_lista_rotativo"),
+    path('altera_rotativo/<int:id>/', altera_rotativo, name="url_altera_rotativo"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
