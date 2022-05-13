@@ -2,6 +2,7 @@ from distutils.command.upload import upload
 from email.policy import default
 from math import ceil, floor, trunc
 from optparse import BadOptionError
+from pyexpat import model
 from tabnanny import verbose
 from django.db import models
 
@@ -52,16 +53,39 @@ class Preco(models.Model):
     class Meta:
         verbose_name_plural = 'Tabela'
 
+class Forma_Pagamento(models.Model):
+    descricao = models.CharField(max_length=30, verbose_name="Forma de pagamento")
+
+    def __str__(self): return self.descricao
+    class Meta: verbose_name_plural = "Forma de pagamento"
+
 class Mensalista(models.Model):
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Cliente")
     id_preco = models.ForeignKey(Preco, on_delete=models.CASCADE, verbose_name="Preço")
     dia_vencimento = models.IntegerField(default=5, verbose_name="Dia de vencimento")
     pendencia = models.BooleanField(default=False, blank=True, null=True,verbose_name="Pendência")
+    forma_pagamento = models.ForeignKey(Forma_Pagamento, on_delete=models.CASCADE, verbose_name='Forma de pagamento', blank=True, null=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, verbose_name="Valor com desconto")
 
     def __str__(self):
         return f"{self.id_cliente} - {self.id_preco}"
     class Meta:
         verbose_name_plural = 'Mensalista'
+    
+    """
+        5% de desconto no dinheiro
+        7% no pix
+    """
+    def desconto(self):
+        obj = Forma_Pagamento.objects.get(id=self.forma_pagamento.pk)
+        obj2 = Preco.objects.get(id=self.id_preco.pk)
+        
+        if obj.descricao == 'Dinheiro': total = float(obj2.valor) * 0.95
+        elif obj.descricao == 'PIX': total = float(obj2.valor) * 0.93
+        else: total = obj2.valor
+        self.total = total
+        return total
+
 
 class Rotativo(models.Model):
     id_veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE, verbose_name="Veiculo")
@@ -83,10 +107,9 @@ class Rotativo(models.Model):
             obj = Preco.objects.get(id=self.id_preco.pk)
             adicional = 0.60 * float(obj.valor)
 
-            if horas <= 0.5: 
-                total = float(obj.valor) / 2
+            if horas <= 0.5: taxa = float(obj.valor) / 2
             else:
-                tolerancia = (ceil(horas-1)) - trunc(ceil(horas-1))
+                tolerancia = (horas) - trunc(horas)
                 if tolerancia <=0.25:
                     taxa = float(obj.valor) + ((floor(horas-1)) * adicional)
                 else:

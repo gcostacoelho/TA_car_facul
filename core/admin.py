@@ -1,7 +1,7 @@
 from django.contrib import admin
 from core.models import *
 
-list = [Cliente, Fabricante, Veiculo, Preco, Mensalista, Rotativo]
+list = [Cliente, Fabricante, Veiculo, Preco, Mensalista, Rotativo, Forma_Pagamento]
 
 admin.site.register(list)
 

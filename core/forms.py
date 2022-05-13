@@ -29,6 +29,13 @@ class FormRotativo(ModelForm):
         model = Rotativo
         fields = '__all__'
 
+
+class FormCadastroRotativo(ModelForm):
+    class Meta:
+        model = Rotativo
+        fields = ['data_entrada', 'id_veiculo', 'id_preco']
+
+
 class FormMensalista(ModelForm):
     class Meta:
         model = Mensalista

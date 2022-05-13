@@ -98,7 +98,7 @@ def tabela_preco(request):
     return render(request, 'core/tabela_preco.html')
 
 def cadastro_rotativo(request):
-    form = FormRotativo(request.POST or None, request.FILES or None)
+    form = FormCadastroRotativo(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
         return redirect('url_lista_rotativo')
