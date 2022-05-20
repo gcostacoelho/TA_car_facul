@@ -63,7 +63,7 @@ class Mensalista(models.Model):
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Cliente")
     id_preco = models.ForeignKey(Preco, on_delete=models.CASCADE, verbose_name="Preço")
     dia_vencimento = models.IntegerField(default=5, verbose_name="Dia de vencimento")
-    pendencia = models.BooleanField(default=False, blank=True, null=True,verbose_name="Pendência")
+    pendencia = models.BooleanField(blank=True, null=True,verbose_name="Pendência")
     forma_pagamento = models.ForeignKey(Forma_Pagamento, on_delete=models.CASCADE, verbose_name='Forma de pagamento', blank=True, null=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, verbose_name="Valor com desconto")
 
@@ -85,7 +85,6 @@ class Mensalista(models.Model):
         else: total = obj2.valor
         self.total = total
         return total
-
 
 class Rotativo(models.Model):
     id_veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE, verbose_name="Veiculo")
