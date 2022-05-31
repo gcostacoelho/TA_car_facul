@@ -6,8 +6,8 @@
 
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Sim</button> 
-        <button type="button" onclick="location.href='{{ url }}'">Não</button> 
+        <button class="btn btn-danger" type="submit">Sim</button> 
+        <button class="btn btn-success" type="button" onclick="location.href='{{ url }}'">Não</button> 
 
     </form>
 

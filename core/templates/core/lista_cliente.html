@@ -4,52 +4,61 @@
 
     <h3>Lista de cliente</h3>
     <br>
+    <!--Barra de pesquisa-->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <form class="form-inline", method="post">
+            {% csrf_token %}
+          <input class="form-control mr-sm-2" type="text" placeholder="Pesquisar" name="nomeCliente">
+          <button class="btn btn-success" type="submit">Pesquisar</button>
+        </form>
+      </nav>
 
-    {% for i in dados %}
-        Nome: {{i.nome}} <br>
-        
-        {% if i.endereco %}
-            Endereço: {{i.endereco}} <br>
-        {% endif %}
-        
-        {% if i.complemtento %}
-            Complemento: {{i.complemento}} <br>
-        {% else %}Complemento: - <br>
-        {% endif %}
-        
-        {% if i.bairro %}
-            Bairro: {{i.bairro}} <br>
-        {% else %}Bairro: - <br>
-        {% endif %}
-        
-        {% if i.cidade %}
-            Cidade: {{i.cidade}} <br>
-        {% else %}Cidade: - <br>
-        {% endif %}
-        
-        {% if i.cep %}
-            CEP: {{i.cep}} <br>
-        {% else %}CEP: - <br>
-        {% endif %}
-        
-        Email: {{i.email}} <br>
+    <ul class="list-group">
+        {% for i in dados %}
+            <li class="list-group-item list-group-item-dark">
+                Nome: {{i.nome}} <br>
+                
+                {% if i.endereco %}
+                    Endereço: {{i.endereco}} <br>
+                {% endif %}
+                
+                {% if i.complemtento %}
+                    Complemento: {{i.complemento}} <br>
+                {% else %}Complemento: - <br>
+                {% endif %}
+                
+                {% if i.bairro %}
+                    Bairro: {{i.bairro}} <br>
+                {% else %}Bairro: - <br>
+                {% endif %}
+                
+                {% if i.cidade %}
+                    Cidade: {{i.cidade}} <br>
+                {% else %}Cidade: - <br>
+                {% endif %}
+                
+                {% if i.cep %}
+                    CEP: {{i.cep}} <br>
+                {% else %}CEP: - <br>
+                {% endif %}
+                
+                Email: {{i.email}} <br>
+                
+                {% if i.telefone %}
+                    Telefone: {{i.telefone}} <br>
+                {% else %}Telefone: - <br>
+                {% endif %}
 
-        {% if i.telefone %}
-            Telefone: {{i.telefone}} <br>
-        {% else %}Telefone: - <br>
-        {% endif %}
+                {% if i.foto %}
+                    <img src="{{i.foto.url}}" width="200px"><br>    
+                {% else %} Não tem foto <br>
+                {% endif %}
 
-        {% if i.foto %}
-            <img src="{{i.foto.url}}" width="200px"> <br>
-        {% else %} Não tem foto <br>
-        {% endif %}
-
-        <a href="/altera_cliente/{{i.id}}/">Editar</a>
-        <a href="/exclui_cliente/{{ i.id }}">Excluir</a>
-        <br>
-        <br>
-        ------------------------------------------------<br>
-    {% endfor %}
+                <a href="/altera_cliente/{{i.id}}/">Editar</a>
+                <a href="/exclui_cliente/{{ i.id }}">Excluir</a>
+            </li>
+        {% endfor %}
+    </ul>
     <a href="/">Voltar</a>
 
 {% endblock main %}

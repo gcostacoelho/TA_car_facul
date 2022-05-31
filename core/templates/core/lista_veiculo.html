@@ -2,37 +2,48 @@
 
 {% block main %}
 
-    <h3>lista de veiculos</h3>
+    <h3>Lista de veiculos</h3>
     <br>
 
-    {% for i in dados %}
-        idCliente: {{i.id_cliente}}<br>
-        idFabricante: {{i.id_fabricante}}<br>
-        
-        {% if i.modelo %}
-            Modelo: {{i.modelo}}<br>
-        {% else %} Modelo: - <br>
-        {% endif %}
-        
-        {% if i.cor %}
-            Cor: {{i.cor}}<br>
-        {% else %}Cor: -<br>
-        {% endif %}
-        
-        Ano: {{i.ano}}<br>
-        Placa: {{i.placa}}<br>
-        
-        {% if i.foto %}
-            <img src="{{i.foto.url}}" width="200px"> <br>
-        {% else %} Não tem foto <br>
-        {% endif %}
+    <!--Barra de pesquisa-->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <form class="form-inline", method="post">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="text" placeholder="Pesquisar" name="nomeModelo">
+            <button class="btn btn-success" type="submit">Pesquisar</button>
+        </form>
+    </nav>
 
-        <a href="/altera_veiculo/{{i.id}}/">Editar</a>
-        <a href="/exclui_veiculo/{{i.id}}/">Excluir</a>
-        <br>
-        <br>
-        ------------------------------------------------<br>
-    {% endfor %}
+
+    <ul class="list-group">
+        {% for i in dados %}
+            <li class="list-group-item list-group-item-dark">
+                Nome proprietário: {{i.id_cliente}}<br>
+                Fabricante: {{i.id_fabricante}}<br>
+                
+                {% if i.modelo %}
+                    Modelo: {{i.modelo}}<br>
+                {% else %} Modelo: - <br>
+                {% endif %}
+                
+                {% if i.cor %}
+                    Cor: {{i.cor}}<br>
+                {% else %}Cor: -<br>
+                {% endif %}
+                
+                Ano: {{i.ano}}<br>
+                Placa: {{i.placa}}<br>
+                
+                {% if i.foto %}
+                    <img src="{{i.foto.url}}" width="200px"> <br>
+                {% else %} Não tem foto <br>
+                {% endif %}
+
+                <a href="/altera_veiculo/{{i.id}}/">Editar</a>
+                <a href="/exclui_veiculo/{{i.id}}/">Excluir</a>
+            </li>
+        {% endfor %}
+    </ul>
     <a href="/">Voltar</a>
 
 {% endblock main %}

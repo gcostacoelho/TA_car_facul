@@ -23,8 +23,12 @@ def cadastro_cliente(request):
     contexto = {'form': form, 'titulo': 'Cadastro de cliente', 'stringBotao': 'Cadastrar'}
     return render(request, 'core/cadastro.html', contexto)
 """    render = É uma resposta sem código para quem solicitou acesso ao server"""
+
 def lista_cliente(request):
     dados = Cliente.objects.all()
+    if request.POST:
+        if request.POST['nomeCliente']: dados = Cliente.objects.filter(nome=request.POST['nomeCliente'])
+
     contexto = {'dados': dados}
     return render(request, 'core/lista_cliente.html', contexto)
 
@@ -59,6 +63,8 @@ def cadastro_veiculo(request):
 
 def lista_veiculo(request):
     dados = Veiculo.objects.all()
+    if request.POST:
+        if request.POST['nomeModelo']: dados=Veiculo.objects.filter(modelo=request.POST['nomeModelo'])
     contexto = {'dados': dados}
     return render(request, 'core/lista_veiculo.html', contexto)
 
@@ -108,7 +114,7 @@ def cadastro_rotativo(request):
     if form.is_valid():
         form.save()
         return redirect('url_lista_rotativo')
-    contexto = {'form': form, 'titulo':'Cadastro de rotativo', 'stringBotao': 'Cadastrar'}
+    contexto = {'form': form, 'titulo':'Cadastro de rotativo', 'stringBotao': 'Cadastrar', 'calendario': True}
     return render(request, 'core/cadastro.html', contexto)
 
 def listagem_rotativo(request):
@@ -126,7 +132,7 @@ def altera_rotativo(request, id):
         form.save()
         return redirect('url_lista_rotativo')
         
-    contexto = {'form': form, 'titulo':'Atualização de rotativo', 'stringBotao': 'Atualizar'}
+    contexto = {'form': form, 'titulo':'Atualização de rotativo', 'stringBotao': 'Atualizar', 'calendario': True}
     return render(request, 'core/cadastro.html', contexto)
 
 #Mensalista

@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core'
+    'core',
+    'bootstrap_datepicker_plus',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +125,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [ BASE_DIR + '/static', BASE_DIR + '/static/img']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_files')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
