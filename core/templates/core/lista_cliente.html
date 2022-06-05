@@ -4,14 +4,13 @@
 
     <h3>Lista de cliente</h3>
     <br>
-    <!--Barra de pesquisa-->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <form class="form-inline", method="post">
-            {% csrf_token %}
-          <input class="form-control mr-sm-2" type="text" placeholder="Pesquisar" name="nomeCliente">
-          <button class="btn btn-success" type="submit">Pesquisar</button>
-        </form>
-      </nav>
+    {% for msg in messages %}
+
+        <div class="alert alert-success alert-dismissible">
+            <button class="close" data-dismiss="alert">&times;</button>
+            {{ msg }}
+        </div>
+    {% endfor %}
 
     <ul class="list-group">
         {% for i in dados %}
@@ -53,12 +52,18 @@
                     <img src="{{i.foto.url}}" width="200px"><br>    
                 {% else %} Não tem foto <br>
                 {% endif %}
-
-                <a href="/altera_cliente/{{i.id}}/">Editar</a>
-                <a href="/exclui_cliente/{{ i.id }}">Excluir</a>
+                <br>
+                
+                <button type="button" class="btn btn-success" onclick="location.href='/altera_cliente/{{i.id}}/'">
+                    <i class="fas fa-pen"></i>
+                    Editar
+                </button> 
+                <button type="button" class="btn btn-danger" onclick="location.href='/exclui_cliente/{{ i.id }}'">
+                    <i class="fas fa-trash"></i>
+                    Excluir
+                </button>
             </li>
         {% endfor %}
     </ul>
-    <a href="/">Voltar</a>
 
 {% endblock main %}

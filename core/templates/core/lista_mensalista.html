@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <a href="/">Voltar</a>
     <h3>Lista de mensalistas</h3>
+
+    {% for msg in messages %}
+    <div class="alert alert-success alert-dismissible">
+        <button class="close" data-dismiss="alert">&times;</button>
+        {{ msg }}
+    </div>
+    {% endfor %}
     
     <ul class="list-group">
         {% for i in dados %}
@@ -17,8 +23,15 @@
                 {% endif %}
                 Total: R$ {{i.total}}<br><br>
 
-                <a href="/altera_mensalista/{{i.id}}/">Editar</a>
-                <a href="/exclui_mensalista/{{i.id}}/">Excluir</a>
+
+                <button type="button" class="btn btn-success" onclick="location.href='/altera_mensalista/{{i.id}}/'">
+                    <i class="fas fa-pen"></i>
+                    Editar
+                </button> 
+                <button type="button" class="btn btn-danger" onclick="location.href='/exclui_mensalista/{{i.id}}/'">
+                    <i class="fas fa-trash"></i>
+                    Excluir
+                </button>
             </li>
         {% endfor %}
     </ul>

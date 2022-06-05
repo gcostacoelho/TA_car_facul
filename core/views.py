@@ -3,6 +3,7 @@ from core.forms import *
 from core.models import *
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 # Create your views here.
 
 def home(request):
@@ -17,8 +18,10 @@ class Registrar(generic.CreateView):
 def cadastro_cliente(request):
     form = FormCliente(request.POST or None, request.FILES or None)
     if form.is_valid():
+        nome = form.cleaned_data['nome']
         form.save()
-        return redirect('url_principal')
+        messages.success(request, f'Cliente {nome} cadastrado com sucesso!')
+        return redirect('url_lista_clientes')
     
     contexto = {'form': form, 'titulo': 'Cadastro de cliente', 'stringBotao': 'Cadastrar'}
     return render(request, 'core/cadastro.html', contexto)
@@ -27,7 +30,7 @@ def cadastro_cliente(request):
 def lista_cliente(request):
     dados = Cliente.objects.all()
     if request.POST:
-        if request.POST['nomeCliente']: dados = Cliente.objects.filter(nome=request.POST['nomeCliente'])
+        if request.POST['pesquisa']: dados = Cliente.objects.filter(nome=request.POST['pesquisa'])
 
     contexto = {'dados': dados}
     return render(request, 'core/lista_cliente.html', contexto)
@@ -37,9 +40,10 @@ def altera_cliente(request, id):
     form = FormCliente(request.POST or None, request.FILES or None, instance=objeto)
     
     if form.is_valid():
+        nome = form.cleaned_data['nome']
         form.save()
-        contexto = {'objeto': objeto.nome, 'url': '/lista_clientes/', 'titulo': 'Atualização de clientes', 'stringBotao': 'Atualizar'}
-        return render(request, 'core/mensagem_salva.html', contexto)
+        messages.success(request, f'Cliente {nome} atualizado com sucesso')
+        return redirect('url_lista_clientes')
     
     contexto = {'form': form, 'titulo': 'Atualização de clientes', 'stringBotao': 'Atualizar'}
     return render(request, 'core/cadastro.html', contexto)
@@ -64,7 +68,7 @@ def cadastro_veiculo(request):
 def lista_veiculo(request):
     dados = Veiculo.objects.all()
     if request.POST:
-        if request.POST['nomeModelo']: dados=Veiculo.objects.filter(modelo=request.POST['nomeModelo'])
+        if request.POST['pesquisa']: dados=Veiculo.objects.filter(placa=request.POST['pesquisa'])
     contexto = {'dados': dados}
     return render(request, 'core/lista_veiculo.html', contexto)
 
@@ -73,9 +77,10 @@ def altera_veiculo(request, id):
     form = FormVeiculo(request.POST or None, request.FILES or None, instance=objeto)
 
     if form.is_valid():
+        nome = form.cleaned_data['modelo']
         form.save()
-        contexto = {'objeto': objeto.modelo, 'url': '/lista_veiculos/', 'titulo': 'Atualização de veículos', 'stringBotao': 'Atualizar'}
-        return render(request, 'core/mensagem_salva.html', contexto)
+        messages.success(request, f'{nome} atualzado com sucesso')
+        return redirect('url_lista_veiculos')
     
     contexto = {'form': form, 'titulo': 'Atualização de veículos', 'stringBotao': 'Atualizar'}
     return render(request, 'core/cadastro.html', contexto)
@@ -119,6 +124,8 @@ def cadastro_rotativo(request):
 
 def listagem_rotativo(request):
     dados = Rotativo.objects.all()
+    if request.POST:
+        if request.POST['pesquisa']: dados=Rotativo.objects.filter(id_veiculo=int(request.POST['pesquisa']))
     contexto = {'dados': dados}
     return render(request, 'core/lista_rotativo.html', contexto)
 
@@ -129,7 +136,9 @@ def altera_rotativo(request, id):
 
     if form.is_valid():
         objeto.calcula_total()
+        veiculo = form.cleaned_data['id_veiculo']
         form.save()
+        messages.success(request, f'{veiculo} atualizado com sucesso')
         return redirect('url_lista_rotativo')
         
     contexto = {'form': form, 'titulo':'Atualização de rotativo', 'stringBotao': 'Atualizar', 'calendario': True}
@@ -146,6 +155,8 @@ def cadastro_mensalista(request):
 
 def listagem_mensalista(request):
     dados = Mensalista.objects.all()
+    if request.POST:
+        if request.POST['pesquisa']: dados=Mensalista.objects.filter(id_cliente=int(request.POST['pesquisa']))
     contexto = {'dados': dados}
     return render(request, 'core/lista_mensalista.html', contexto)
 
@@ -154,10 +165,11 @@ def altera_mensalista(request, id):
     form = FormMensalista(request.POST or None, request.FILES or None, instance=objeto)
 
     if form.is_valid():
+        nome = form.cleaned_data['id_cliente']
         form.save()
-        context = {'objeto': objeto.id_cliente, 'url': '/lista_mensalista/', 'titulo': 'Atualização de mensalistas', 'stringBotao': 'Atualizar'}
-        return render(request, 'core/mensagem_salva.html', context)
-    
+        messages.success(request, f'Mensalista {nome} atualizado com sucesso')
+        return redirect('url_lista_mensalista')
+
     contexto = {'form': form, 'titulo': 'Atualização de mensalistas', 'stringBotao': 'Atualizar'}
     return render(request, 'core/cadastro.html', contexto)
 

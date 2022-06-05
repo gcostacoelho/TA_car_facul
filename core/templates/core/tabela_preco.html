@@ -5,11 +5,10 @@
 <h3>Tabela de preços</h3>
 <ul class="list-group">
     {% for i in dados %}
-        <li class="list-group-item">
+        <li class="list-group-item list-group-item-dark">
             Descrição: {{i.descricao}}<br>
             Valor: {{i.valor}}<br>
         </li>
     {% endfor %}
 </ul>
-    <a href="/">Voltar</a>
 {% endblock main %}
