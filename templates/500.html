@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <br>
+
+    <h3>
+        {% if msg_erro %}
+           Error:  <strong>{{msg_erro}}</strong>
+        {% else %}
+            500
+        {% endif %}
+    </h3>
+
+    <br>
+    <img src="https://live.staticflickr.com/7001/6509400855_aaaf915871_c.jpg">
+
+    <style>
+        img{
+            border-radius: 10px;
+            width: 500px;
+            height:500px;
+            display: block; 
+            margin-left: auto; 
+            margin-right: auto;
+        }
+
+
+    </style>
+
+{% endblock main %}
