@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <br>
+    <h3>Lista de rotativos</h3>
+
+    {% for msg in messages %}
+    <div class="alert alert-success alert-dismissible">
+        <button class="close" data-dismiss="alert">&times;</button>
+        {{ msg }}
+    </div>
+    {% endfor %}
+    
+    <ul class="list-group">
+        {% for i in dados %}
+            <li class="list-group-item list-group-item-dark">
+                <p>
+                    Veiculo: {{i.id_veiculo}}<br>
+                    Entrada: {{i.data_entrada}}<br>
+                    
+                    {% if i.data_saida and i.total %}
+                        Saída: {{i.data_saida}}<br>
+                        Total: {{i.total}} <br>
+                    {% else %} 
+                        Saida: --<br>
+                        Total: --<br>
+                    {% endif %}
+                    Pago: {{i.pago}}<br><br>
+                    <button type="button" class="btn btn-success" onclick="location.href='/altera_rotativo/{{i.id}}/'">
+                        <i class="fas fa-pen"></i>
+                        Editar
+                    </button>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock main %}
+

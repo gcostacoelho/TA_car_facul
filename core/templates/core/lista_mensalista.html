@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <br>
+    <h3>Lista de mensalistas</h3>
+
+    {% for msg in messages %}
+    <div class="alert alert-success alert-dismissible">
+        <button class="close" data-dismiss="alert">&times;</button>
+        {{ msg }}
+    </div>
+    {% endfor %}
+    
+    <ul class="list-group">
+        {% for i in dados %}
+            <li class="list-group-item list-group-item-dark">
+                Cliente: {{i.id_cliente}}<br>
+                Valor: {{i.id_preco}}<br>
+                Vencimento: {{i.dia_vencimento}}<br>
+                {% if i.pendencia %}
+                    Status do pagamento: <strong>Em aberto</strong><br>
+                {% else %}
+                    Status do pagamento: <strong>Fechado</strong><br>
+                {% endif %}
+                Total: R$ {{i.total}}<br><br>
+
+
+                <button type="button" class="btn btn-success" onclick="location.href='/altera_mensalista/{{i.id}}/'">
+                    <i class="fas fa-pen"></i>
+                    Editar
+                </button> 
+                <button type="button" class="btn btn-danger" onclick="location.href='/exclui_mensalista/{{i.id}}/'">
+                    <i class="fas fa-trash"></i>
+                    Excluir
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock main %}
+

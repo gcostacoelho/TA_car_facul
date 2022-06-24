@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <br>
+  <h3>Lista de fabricantes</h3>
+  
+  <br>
+  <ul class="list-group">
+    {% for i in dados %}
+      <li class="list-group-item list-group-item-dark">
+        <p> Fabricante: {{ i.descricao}} </p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

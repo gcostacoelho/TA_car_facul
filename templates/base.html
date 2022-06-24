@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <title>TAcar</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+
+    {% block extrahead %}
+        
+    {% endblock %}
+    
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <!-- Brand -->
+
+        <!-- Links -->
+
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="fas fa-home"></i>
+            </a>
+          </li>
+          <!-- Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href='/' id="navbardrop" data-toggle="dropdown">
+              Clientes
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href='/cadastro_cliente/'>Cadastro</a>
+              <a class="dropdown-item" href='/lista_clientes/'>Lista</a>
+            </div>
+          </li>
+          <!-- Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              Veiculos
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/cadastro_veiculo/">Cadastro</a>
+              <a class="dropdown-item" href="/lista_veiculos/">Lista</a>
+            </div>
+          </li>
+          <!-- Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              Fabricante
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/cadastro_fabricante/">Cadastro</a>
+              <a class="dropdown-item" href="/lista_fabricante/">Lista</a>
+            </div>
+          </li>
+          <!-- Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              Rotativo
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/cadastro_rotativo/">Cadastro</a>
+              <a class="dropdown-item" href="/lista_rotativo/">Lista</a>
+            </div>
+          </li>
+          <!-- Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              Mensalista
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/cadastro_mensalista/">Cadastro</a>
+              <a class="dropdown-item" href="/lista_mensalista/">Lista</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/tabela/">Tabela Preços</a>
+          </li>
+        </ul>
+
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <form class="form-inline" method="post">
+                {% csrf_token %}
+              <input class="form-control mr-sm-2" type="text" placeholder="Pesquisa" name="pesquisa">
+              <button class="btn btn-success" type="submit">Pesquisar</button>
+            </form>
+        </nav>
+
+        <div class="display-flex">
+            <div align="Left">
+                {% if user.get_username %}
+                    <font color="white">{{user.get_username}} | </font>
+                    <a href="/accounts/logout">Sair</a> |
+                    <a href="/admin/" target="_blank">Admin</a> <br>
+                {% else %}
+                    <font color="white"></font>
+                    <a href="/accounts/login/">
+                      Entrar
+                    </a>
+                    |
+                    <a href="/accounts/registrar">Cadastrar</a>
+                {% endif %}
+            </div>
+        </div>
+      </nav>
+    <body>
+        <div class="container-fluid">    
+            {% block main %}
+            {% endblock %}
+        </div>
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    </body>
+
+    <style>
+        body{
+            color: white;
+            background-color: #141414;
+        }
+
+        a{
+          text-decoration: none;
+          color: white;
+        }
+        a:hover{
+          text-decoration: none;
+          color: cyan;
+        }
+
+    </style>
+</html>
