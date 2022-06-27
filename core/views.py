@@ -78,7 +78,7 @@ def cadastro_veiculo(request):
         form = FormVeiculo(request.POST or None, request.FILES or None)
         if form.is_valid():
             form.save()
-            return redirect('url_principal')
+            return redirect('url_lista_veiculos')
         contexto = {'form': form, 'titulo': 'Cadastro de veículos', 'stringBotao': 'Cadastrar'}
         return render(request, 'core/cadastro.html', contexto)
     except Exception as mensagem_erro:
@@ -131,7 +131,7 @@ def cadastro_fabricante(request):
         form = FormFabricante(request.POST or None, request.FILES or None)
         if form.is_valid():
             form.save()
-            return redirect('url_principal')
+            return redirect('url_lista_fabricante')
         contexto = {'form': form, 'titulo': 'Cadastro de fabricantes', 'stringBotao': 'Cadastrar'}
         return render(request, 'core/cadastro.html', contexto)
     except Exception as mensagem_erro:
