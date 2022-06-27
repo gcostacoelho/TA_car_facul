@@ -131,6 +131,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_files')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-django.heroku.settings(locals())
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
