@@ -41,8 +41,8 @@ class FormCadastroRotativo(ModelForm):
         model = Rotativo
         fields = ['data_entrada', 'id_veiculo', 'id_preco']
         widgets = {
-            'data_entrada': DateTimePickerInput(format='%d/%m/%Y HH:mm'), 
-            'data_saida': DateTimePickerInput(format='%d/%m/%Y HH:mm')
+            'data_entrada': DateTimePickerInput(), 
+            'data_saida': DateTimePickerInput()
         }
 
 
