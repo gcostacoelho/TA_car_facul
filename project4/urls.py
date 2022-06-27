@@ -9,7 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/registrar', Registrar.as_view(), name="url_registrar"),
-    path('/', home, name='url_principal'),
+    path('', home, name='url_principal'),
 
     #Clientes
     path('cadastro_cliente/', cadastro_cliente),

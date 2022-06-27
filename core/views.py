@@ -7,7 +7,7 @@ from django.contrib import messages
 # Create your views here.
 
 def home(request):
-    return render(request, 'index.html')
+    return render(request, './index.html')
 
 class Registrar(generic.CreateView):
     form_class = UserCreationForm
