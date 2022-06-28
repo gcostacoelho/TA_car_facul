@@ -33,6 +33,7 @@ class FormRotativo(ModelForm):
             'data_saida': DateTimePickerInput()
         }
 
+
 class FormCadastroRotativo(ModelForm):
     class Meta:
         model = Rotativo
